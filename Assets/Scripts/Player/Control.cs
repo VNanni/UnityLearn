@@ -16,6 +16,12 @@ public class Control : MonoBehaviour
     int ydirectid;
     int speedid;
 
+    public GameObject mybag;
+    bool isopenbag = false;
+
+    public GameObject MiniMap;
+    bool isopenMiniMap = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +38,8 @@ public class Control : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-
-        
+        Openbag();
+        OpenMiniMap();
     }
 
     private void FixedUpdate()
@@ -52,4 +58,24 @@ public class Control : MonoBehaviour
 
         anim.SetFloat(speedid, movement.magnitude);
     }
+
+    void Openbag()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            isopenbag = !isopenbag;
+            mybag.SetActive(isopenbag);
+        }
+        isopenbag = mybag.activeSelf;
+    }
+
+    void OpenMiniMap()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            isopenMiniMap = !isopenMiniMap;
+            MiniMap.SetActive(isopenMiniMap);
+        }
+    }
+
 }

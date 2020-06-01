@@ -54,6 +54,8 @@ public class RoomGenerate : MonoBehaviour
         // Generate Last Room
         GetFarRoom();
         rooms[rooms.Count - 1].doorcount = 1;
+        rooms[rooms.Count - 1].SetBehind();
+
 
         rooms[rooms.Count-1].GetComponent<SpriteRenderer>().color = startcolor;
 
