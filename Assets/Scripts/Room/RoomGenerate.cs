@@ -14,7 +14,6 @@ public class RoomGenerate : MonoBehaviour
     public int roomcount;
     public Color startcolor, endcolor;
     public LayerMask roomlayer;
-    public Rooms endroom;
 
     [Header("位置信息")]
     public Transform roomcenter;
@@ -23,7 +22,7 @@ public class RoomGenerate : MonoBehaviour
 
     public List<Rooms> rooms = new List<Rooms>();
     private int maxroomnum = 0;
-    public List<Rooms> LastRooms = new List<Rooms>();
+    public List<int> LastRooms = new List<int>();
 
     public WallType walltype;
 
@@ -38,6 +37,7 @@ public class RoomGenerate : MonoBehaviour
         }
 
         rooms[0].GetComponent<SpriteRenderer>().color = startcolor;
+
         foreach (var room in rooms)
         {
             // Set Door whether Visualable
@@ -45,12 +45,17 @@ public class RoomGenerate : MonoBehaviour
 
             // Set Room Number and Door Count
             room.UpdateRoomNum(xoffset, yoffset);
+
+            // Set All the door is unvisualable
+            room.SetBehind();
         }
+        rooms[0].SetFirst();
 
         // Generate Last Room
         GetFarRoom();
+        rooms[rooms.Count - 1].doorcount = 1;
 
-        rooms[rooms.Count-1].GetComponent<SpriteRenderer>().color = endcolor;
+        rooms[rooms.Count-1].GetComponent<SpriteRenderer>().color = startcolor;
 
         // Set Wall
         SetWall();
@@ -58,10 +63,10 @@ public class RoomGenerate : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKey)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        //if (Input.anyKey)
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //}
     }
 
     public void ChangePoint()
@@ -105,46 +110,50 @@ public class RoomGenerate : MonoBehaviour
                 maxroomnum = room.roomnumber;
             }
         }
+        int index = 0;
         foreach (var room in rooms)
         {
             if (room.roomnumber == maxroomnum)
             {
-                LastRooms.Add(room);
+                LastRooms.Add(index);
             }
+            index += 1;
         }
 
-        endroom = LastRooms[Random.Range(0, LastRooms.Count)];
+        int endroom = Random.Range(0, LastRooms.Count);
+        endroom = LastRooms[endroom];
 
         // Get the direction of no door and Generate the last room
-        if (!endroom.room_T)
+        Rooms endr = rooms[endroom];
+        if (!endr.room_T)
         {
-            endroom.room_T = true;
-            endroom = Instantiate(roombase, endroom.transform.position + new Vector3(0, yoffset, 0), Quaternion.identity).GetComponent<Rooms>();
-            endroom.room_B = true;
+            rooms[endroom].room_T = true;
+            rooms.Add(Instantiate(roombase, endr.transform.position + new Vector3(0, yoffset, 0), Quaternion.identity).GetComponent<Rooms>());
+            rooms[rooms.Count-1].room_B = true;
         }
-        else if (!endroom.room_B)
+        else if (!endr.room_B)
         {
-            endroom.room_B = true;
-            endroom = Instantiate(roombase, endroom.transform.position + new Vector3(0, -yoffset, 0), Quaternion.identity).GetComponent<Rooms>();
-            endroom.room_T = true;
+            rooms[endroom].room_B = true;
+            rooms.Add(Instantiate(roombase, endr.transform.position + new Vector3(0, -yoffset, 0), Quaternion.identity).GetComponent<Rooms>());
+            rooms[rooms.Count - 1].room_T = true;
         }
-        else if (!endroom.room_L)
+        else if (!endr.room_L)
         {
-            endroom.room_L = true;
-            endroom = Instantiate(roombase, endroom.transform.position + new Vector3(-xoffset, 0, 0), Quaternion.identity).GetComponent<Rooms>();
-            endroom.room_R = true;
+            rooms[endroom].room_L = true;
+            rooms.Add(Instantiate(roombase, endr.transform.position + new Vector3(-xoffset, 0, 0), Quaternion.identity).GetComponent<Rooms>());
+            rooms[rooms.Count - 1].room_R = true;
         }
-        else if (!endroom.room_R)
+        else if (!endr.room_R)
         {
-            endroom.room_R = true;
-            endroom = Instantiate(roombase, endroom.transform.position + new Vector3(xoffset, 0, 0), Quaternion.identity).GetComponent<Rooms>();
-            endroom.room_L = true;
+            rooms[endroom].room_R = true;
+            rooms.Add(Instantiate(roombase, endr.transform.position + new Vector3(xoffset, 0, 0), Quaternion.identity).GetComponent<Rooms>());
+            rooms[rooms.Count - 1].room_L = true;
         }
+        rooms[endroom].doorcount += 1;
 
         // Update the room info and Add the last room to rooms List
-        endroom.doorcount = 1;
-        endroom.roomnumber = maxroomnum + 1;
-        rooms.Add(endroom);
+        //rooms[rooms.Count - 1].doorcount = 1;
+        //rooms[rooms.Count - 1].roomnumber = maxroomnum + 1;
     }
 
     public void SetWall()

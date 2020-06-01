@@ -112,7 +112,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1578915897
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5224ae830e0349d4296dd138076c1446, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1906,7 +1906,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 942485416490787131}
-  - component: {fileID: 762895154722766783}
+  - component: {fileID: 5871084557421713660}
   m_Layer: 8
   m_Name: RoomEnter
   m_TagString: Untagged
@@ -1928,19 +1928,32 @@ Transform:
   m_Father: {fileID: 3386718370707777550}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &762895154722766783
-BoxCollider:
+--- !u!61 &5871084557421713660
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4265463219993739747}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18.12, y: 10.09, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 18, y: 10}
+  m_EdgeRadius: 0
 --- !u!1 &5449508902108819055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2009,7 +2022,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1578915897
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5224ae830e0349d4296dd138076c1446, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2033,9 +2046,8 @@ GameObject:
   - component: {fileID: 3386718370707777550}
   - component: {fileID: 7907627916267741567}
   - component: {fileID: 7723195871132307950}
-  - component: {fileID: 2887479757797646353}
-  - component: {fileID: 4842614584698319633}
-  m_Layer: 8
+  - component: {fileID: 730367675228772003}
+  m_Layer: 0
   m_Name: BaseRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2130,13 +2142,17 @@ MonoBehaviour:
   room_B: 0
   room_L: 0
   room_R: 0
+  room_T_1: 0
+  room_B_1: 0
+  room_L_1: 0
+  room_R_1: 0
   door_U: {fileID: 7771671332693336711}
   door_D: {fileID: 8462228694000906114}
   door_L: {fileID: 5449508902108819055}
   door_R: {fileID: 2413024138525993956}
   roomnumber: 0
   doorcount: 0
---- !u!50 &2887479757797646353
+--- !u!50 &730367675228772003
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -2157,32 +2173,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &4842614584698319633
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6724470401717938512}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16, y: 8}
-    newSize: {x: 1, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3, y: 3}
-  m_EdgeRadius: 0
 --- !u!1 &7771671332693336711
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,7 +2241,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1578915897
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5224ae830e0349d4296dd138076c1446, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2467,8 +2457,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1578915897
-  m_SortingLayer: 3
+  m_SortingLayerID: -437879701
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2590,7 +2580,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1578915897
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5224ae830e0349d4296dd138076c1446, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
